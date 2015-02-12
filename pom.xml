@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>me.defying.chili</groupId>
+    <artifactId>chili-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    
+    <name>chili-parent</name>
+    <description>
+        Chili is a suite of annotations to boost Java development.
+    </description>
+    <url>http://defying.me</url>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <name>Rafael Marmelo</name>
+            <email>rafael@defying.me</email>
+            <organization>defying.me</organization>
+            <organizationUrl>http://defying.me</organizationUrl>
+        </developer>
+    </developers>
+    
+    <scm>
+        <connection>scm:git:git@github.com:marmelo/chili.git</connection>
+        <developerConnection>scm:git:git@github.com:marmelo/chili.git</developerConnection>
+        <url>git@github.com:marmelo/chili.git</url>
+    </scm>
+</project>
