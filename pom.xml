@@ -9,16 +9,26 @@
     
     <name>chili-parent</name>
     <description>
-        Chili is a suite of annotations to boost Java development.
+        Chili is a collection of annotations to boost Java development.
     </description>
-    <url>http://defying.me</url>
+    <url>https://github.com/marmelo/chili</url>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <!-- dependency versions -->
+        <guice.version>3.0</guice.version>
+        <guava.version>18.0</guava.version>
+        <slf4j.version>1.7.10</slf4j.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
+    <modules>
+        <module>chili</module>
+        <module>chili-example</module>
+    </modules>
+    
     <licenses>
         <license>
             <name>MIT License</name>
@@ -40,4 +50,51 @@
         <developerConnection>scm:git:git@github.com:marmelo/chili.git</developerConnection>
         <url>git@github.com:marmelo/chili.git</url>
     </scm>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>me.defying.chili</groupId>
+                <artifactId>chili</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
