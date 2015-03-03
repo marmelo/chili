@@ -23,8 +23,8 @@
 package me.defying.chili.memoize;
 
 import java.lang.reflect.Method;
-import java.util.Optional;
 
+import com.google.common.base.Optional;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

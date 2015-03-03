@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
+import com.google.common.base.Optional;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
@@ -82,7 +82,7 @@ public class MemoizeInterceptor implements MethodInterceptor {
 
         try {
             // get or compute result
-            result = cache.get(key, invoker).orElse(null);
+            result = cache.get(key, invoker).orNull();
         } catch (ExecutionException ex) {
             // when the underlying method invokation throws an exception we need
             // to unrap it in order to existing code get the real exception

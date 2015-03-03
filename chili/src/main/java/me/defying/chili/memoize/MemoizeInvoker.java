@@ -23,9 +23,9 @@
  */
 package me.defying.chili.memoize;
 
-import java.util.Optional;
 import java.util.concurrent.Callable;
 
+import com.google.common.base.Optional;
 import org.aopalliance.intercept.MethodInvocation;
 
 /**
@@ -55,6 +55,6 @@ public class MemoizeInvoker implements Callable<Optional<Object>> {
         }
 
         // guava caches do not allow null values
-        return Optional.ofNullable(result);
+        return Optional.fromNullable(result);
     }
 }
