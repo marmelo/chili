@@ -22,9 +22,7 @@
  */
 package me.defying.chili.example;
 
-
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 import me.defying.chili.module.ChiliModule;
@@ -39,33 +37,13 @@ import me.defying.chili.module.ChiliModule;
  */
 public class MemoizeExample {
     
-    @Inject
-    MemoizeService service;
-    
-    public void run() {
-        Injector injector = Guice.createInjector(new ChiliModule());
-        injector.injectMembers(this);
-
-        // calculate five powers
-        // (all with cache miss)
-        System.out.println(service.power(1));
-        System.out.println(service.power(2));
-        System.out.println(service.power(3));
-        System.out.println(service.power(4));
-        System.out.println(service.power(5));
-        
-        // cache hit
-        System.out.println(service.power(3));
-        
-        // cache miss
-        System.out.println(service.power(1));
-        
-        // cache hit
-        System.out.println(service.power(1));
-    }
-    
     public static void main(String[] args) {
-        new MemoizeExample().run();
+        // create the injector
+        Injector injector = Guice.createInjector(new ChiliModule());
+ 
+        // create our application main class
+        MemoizeApplication application = injector.getInstance(MemoizeApplication.class);
+        application.run();
         
         //
         // Expected stdout:

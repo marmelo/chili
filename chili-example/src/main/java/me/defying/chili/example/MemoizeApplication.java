@@ -20,47 +20,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili;
+package me.defying.chili.example;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.concurrent.TimeUnit;
+import com.google.inject.Inject;
 
 /**
- * Indicates that a method invocation is cached.
+ * Example of {@code Memoize} annotation.
+ * 
+ * <p>Please refer to {@code MemoizeTestService} for further examples.
  * 
  * @author Rafael Marmelo
  * @since 1.0
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Memoize {
+public class MemoizeApplication {
     
-    /**
-     * Returns the maximum entries the cache may have.
-     * @return the maximum entries the cache may have. 
-     */
-    long size() default 0;
+    @Inject
+    private MemoizeService service;
     
-    /**
-     * Returns for how long the method invocation should be cached according to
-     * the {@code TimeUnit} value. If unspecified or equal to zero the cache
-     * will not be time bound.
-     * @return how long the method invocation should be cached.
-     */
-    long time() default 0;
-    
-    /**
-     * Returns the {@code TimeUnit} the time value refers to.
-     * @return the {@code TimeUnit} the time value refers to. 
-     */
-    TimeUnit unit() default TimeUnit.MILLISECONDS;
-    
-    /**
-     * Returns whether or not cache statistics should be logged.
-     * @return whether or not cache statistics should be logged. 
-     */
-    boolean statistics() default false;
+    public void run() {
+        // calculate five powers
+        // (all with cache miss)
+        System.out.println(service.power(1));
+        System.out.println(service.power(2));
+        System.out.println(service.power(3));
+        System.out.println(service.power(4));
+        System.out.println(service.power(5));
+        
+        // cache hit
+        System.out.println(service.power(3));
+        
+        // cache miss
+        System.out.println(service.power(1));
+        
+        // cache hit
+        System.out.println(service.power(1));
+    }
 }
