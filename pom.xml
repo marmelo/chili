@@ -9,7 +9,7 @@
     
     <name>chili-parent</name>
     <description>
-        Chili is a collection of annotations to boost Java development.
+        Chili is a collection of Java annotations that simplify common tasks.
     </description>
     <url>https://github.com/marmelo/chili</url>
     

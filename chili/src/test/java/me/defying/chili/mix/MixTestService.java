@@ -20,30 +20,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.module;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
+package me.defying.chili.mix;
 
 import me.defying.chili.Log;
 import me.defying.chili.Memoize;
-import me.defying.chili.log.LogInterceptor;
-import me.defying.chili.memoize.MemoizeInterceptor;
+import me.defying.chili.memoize.Wrap;
 
 /**
- * Guava module that configures all Chili annotations.
- * 
- * <p>An instance of this module must be passed into the
- * {@code Guice.createInjector} method along side with other existing modules.
+ * Test service for multiple annotation.
  * 
  * @author Rafael Marmelo
  * @since 1.0
  */
-public class ChiliModule extends AbstractModule {
+public class MixTestService {
 
-    @Override
-    protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
+    @Log
+    @Memoize
+    public Wrap simple(String x) {
+        return new Wrap(x);
     }
 }

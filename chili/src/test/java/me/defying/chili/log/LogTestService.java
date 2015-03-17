@@ -20,73 +20,77 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.memoize.service;
+package me.defying.chili.log;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-import me.defying.chili.Memoize;
+import me.defying.chili.Log;
 
 /**
- * Test service for {@code Memoize} annotation.
+ * Test service for {@code Log} annotation.
  * 
  * @author Rafael Marmelo
  * @since 1.0
  */
-public class MemoizeTestService {
+public class LogTestService {
 
-    @Memoize
-    public Wrap simple(String x) {
-        return new Wrap(x);
+    @Log
+    public void simple() {
+        // empty
     }
 
-    @Memoize(size = 3)
-    public Wrap keep3(String x) {
-        return new Wrap(x);
+    @Log(level = LogLevel.TRACE)
+    public void levelTrace() {
+        // empty
     }
 
-    @Memoize(time = 1, unit = TimeUnit.SECONDS)
-    public Wrap keep1Sec(String x) {
-        return new Wrap(x);
+    @Log(level = LogLevel.DEBUG)
+    public void levelDebug() {
+        // empty
     }
 
-    @Memoize(size = 3, time = 1, unit = TimeUnit.SECONDS)
-    public Wrap keep3for1Sec(String x) {
-        return new Wrap(x);
+    @Log(level = LogLevel.INFO)
+    public void levelInfo() {
+        // empty
     }
 
-    @Memoize
-    public Wrap exception(String x) throws Exception {
+    @Log(level = LogLevel.WARNING)
+    public void levelWarning() {
+        // empty
+    }
+
+    @Log(level = LogLevel.ERROR)
+    public void levelError() {
+        // empty
+    }
+
+    @Log
+    public void hasArgument(int x) {
+        // empty
+    }
+
+    @Log
+    public void hasArguments(int x, int y) {
+        // empty
+    }
+
+    @Log
+    public void hasVarArgs(int... x) {
+        // empty
+    }
+
+    @Log
+    public int hasReturn() {
+        return 1;
+    }
+
+    @Log
+    public int hasArgumentAndReturn(int x) {
+        return x;
+    }
+    
+    @Log
+    public void exception() throws Exception {
         throw new IOException();
-    }
-
-    @Memoize
-    public Wrap noArgs() {
-        return new Wrap(null);
-    }
-
-    @Memoize
-    public Wrap twoArgs(String x, String y) {
-        return new Wrap(x + y);
-    }
-
-    @Memoize
-    public Wrap varArgs(String... x) {
-        return new Wrap(x);
-    }
-
-    @Memoize
-    public Wrap mixedVarArgs(String x, String... y) {
-        return new Wrap(x);
-    }
-
-    @Memoize
-    public Wrap nullResult(String x) {
-        return null;
-    }
-
-    @Memoize
-    public Wrap array(String[] x) {
-        return new Wrap(x);
     }
 }

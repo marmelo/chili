@@ -20,30 +20,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.module;
+package me.defying.chili;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import me.defying.chili.Log;
-import me.defying.chili.Memoize;
-import me.defying.chili.log.LogInterceptor;
-import me.defying.chili.memoize.MemoizeInterceptor;
+import me.defying.chili.log.LogLevel;
 
 /**
- * Guava module that configures all Chili annotations.
- * 
- * <p>An instance of this module must be passed into the
- * {@code Guice.createInjector} method along side with other existing modules.
+ * Indicates that a method invocation is logged.
  * 
  * @author Rafael Marmelo
  * @since 1.0
  */
-public class ChiliModule extends AbstractModule {
-
-    @Override
-    protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Log {
+    
+    /**
+     * Returns the log level.
+     * @return the log level.
+     */
+    LogLevel level() default LogLevel.DEBUG;
 }

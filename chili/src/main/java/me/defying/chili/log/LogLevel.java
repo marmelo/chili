@@ -20,30 +20,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.module;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-
-import me.defying.chili.Log;
-import me.defying.chili.Memoize;
-import me.defying.chili.log.LogInterceptor;
-import me.defying.chili.memoize.MemoizeInterceptor;
+package me.defying.chili.log;
 
 /**
- * Guava module that configures all Chili annotations.
- * 
- * <p>An instance of this module must be passed into the
- * {@code Guice.createInjector} method along side with other existing modules.
+ * Logging levels.
  * 
  * @author Rafael Marmelo
  * @since 1.0
  */
-public class ChiliModule extends AbstractModule {
-
-    @Override
-    protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
-    }
+public enum LogLevel {
+    TRACE, DEBUG, INFO, WARNING, ERROR
 }

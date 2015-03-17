@@ -10,6 +10,7 @@ to process the annotations and requires JDK 1.7 or higher.
 
 The following [annotations](#annotations) are currently implemented:
 
+- [@Log](#log) - Log method invocation.
 - [@Memoize](#memoize) - Cache the method computed result.
 
 
@@ -147,3 +148,13 @@ The [@Memoize](#memoize) annotation accepts the following elements:
 | ```statistics``` | boolean  | false        | Whether or not cache statistics should be logged. |
 
 When the ```size``` and ```time``` values are active, both are enforced.
+
+#### @Log
+
+Log method invocation with arguments, return value and execution time.
+
+The [@Log](#log) annotation accepts the following elements:
+
+| Element     | Type     | Default       | Description  |
+| ----------- | -------- | ------------- | ------------ |
+| ```level``` | LogLevel | INFO | Log level to be used. Possible values are TRACE, DEBUG, INFO, WARNING and ERROR. |

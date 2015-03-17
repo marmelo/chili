@@ -20,23 +20,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.memoize;
+package me.defying.chili;
 
 import java.io.IOException;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import org.junit.Before;
 import org.junit.Test;
 
-import me.defying.chili.memoize.service.MemoizeTestService;
-import me.defying.chili.memoize.service.Wrap;
-import me.defying.chili.module.ChiliModule;
+import me.defying.chili.memoize.MemoizeTestService;
+import me.defying.chili.memoize.Wrap;
+import me.defying.chili.util.ChiliTest;
 
 /**
  * Test class for {@code Memoize} annotation.
@@ -44,15 +41,9 @@ import me.defying.chili.module.ChiliModule;
  * @author Rafael Marmelo
  * @since 1.0
  */
-public class MemoizeTest {
+public class MemoizeTest extends ChiliTest {
     @Inject
     private MemoizeTestService service;
-
-    @Before
-    public void setUp() {
-        Injector injector = Guice.createInjector(new ChiliModule());
-        injector.injectMembers(this);
-    }
 
     /**
      * Test simple memoization, without any arguments.
@@ -131,7 +122,26 @@ public class MemoizeTest {
         Wrap c2 = service.keep3for1Sec("c");
         assertNotEquals(c, c2);
     }
-
+    
+    /**
+     * Test memoization statistics.
+     */
+    @Test
+    public void statisticsTest() {
+        Wrap a = service.statistics("a");
+        Wrap a1 = service.statistics("a");
+        Wrap a2 = service.statistics("a");
+        assertEquals(a, a1);
+        assertEquals(a, a2);
+        
+        // assert statistics log
+        String[] lines = log.toString().split("\n");
+        assertEquals(3, lines.length);
+        assertMatches(lines[0].trim(), "^DEBUG Method MemoizeTestService\\.statistics :: 1 requests :: 0 hits \\(0\\.0%\\)\\.$");
+        assertMatches(lines[1].trim(), "^DEBUG Method MemoizeTestService\\.statistics :: 2 requests :: 1 hits \\(50\\.0%\\)\\.$");
+        assertMatches(lines[2].trim(), "^DEBUG Method MemoizeTestService\\.statistics :: 3 requests :: 2 hits \\(66\\.6%\\)\\.$");
+    }
+    
     /**
      * Test that memoized functions may throw exceptions.
      */
@@ -195,6 +205,11 @@ public class MemoizeTest {
         Wrap abcd = service.mixedVarArgs("a", "b", "c", "d");
         Wrap abcd1 = service.mixedVarArgs("a", "b", "c", "d");
         assertEquals(abcd, abcd1);
+        
+        // primitive varargs
+        Wrap p123 = service.primitiveVarArgs(1, 2, 3);
+        Wrap p1231 = service.primitiveVarArgs(1, 2, 3);
+        assertEquals(p123, p1231);
     }
 
     /**
