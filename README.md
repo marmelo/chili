@@ -132,6 +132,16 @@ project for further examples.
 
 ## Annotations
 
+#### @Log
+
+Log method invocation with arguments, return value and execution time.
+
+The [@Log](#log) annotation accepts the following elements:
+
+| Element     | Type     | Default       | Description  |
+| ----------- | -------- | ------------- | ------------ |
+| ```level``` | LogLevel | INFO | Log level to be used. Possible values are TRACE, DEBUG, INFO, WARNING and ERROR. |
+
 #### @Memoize
 
 Stores results of expensive function calls and returns the cached result when the
@@ -148,13 +158,3 @@ The [@Memoize](#memoize) annotation accepts the following elements:
 | ```statistics``` | boolean  | false        | Whether or not cache statistics should be logged. |
 
 When the ```size``` and ```time``` values are active, both are enforced.
-
-#### @Log
-
-Log method invocation with arguments, return value and execution time.
-
-The [@Log](#log) annotation accepts the following elements:
-
-| Element     | Type     | Default       | Description  |
-| ----------- | -------- | ------------- | ------------ |
-| ```level``` | LogLevel | INFO | Log level to be used. Possible values are TRACE, DEBUG, INFO, WARNING and ERROR. |
