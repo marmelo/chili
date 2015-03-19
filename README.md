@@ -1,6 +1,9 @@
 # Chili
 
 [![Build Status](https://travis-ci.org/marmelo/chili.svg?branch=master)](https://travis-ci.org/marmelo/chili)
+[![Maven Central](https://img.shields.io/badge/maven--central-v1.0-blue.svg)](http://search.maven.org/#artifactdetails|me.defying.chili|chili|1.0|jar)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/marmelo/chili/blob/master/LICENSE)
+
 
 **Chili** is a collection of Java annotations that simplify common tasks.
 
@@ -16,18 +19,25 @@ The following [annotations](#annotations) are currently implemented:
 
 ## Configuration
 
-There are no major Chili releases so you can only find the latest snapshot release at
-Sonatype's repository. You need to add the following dependency to your ```pom.xml```:
+You can get Chili straight from Maven central repository:
 
 ```xml
 <dependency>
   <groupId>me.defying.chili</groupId>
   <artifactId>chili</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
 </dependency>
 ```
 
-Then, you need to configure Sonatype snapshot repository:
+Alternatively, you may use the latest snapshot release from the Sonatype's repository (which may require additional repository configuration).
+
+```xml
+<dependency>
+  <groupId>me.defying.chili</groupId>
+  <artifactId>chili</artifactId>
+  <version>1.1-SNAPSHOT</version>
+</dependency>
+```
 
 ```xml
 <repositories>
