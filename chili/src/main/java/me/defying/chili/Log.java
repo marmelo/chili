@@ -22,6 +22,7 @@
  */
 package me.defying.chili;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,6 +36,7 @@ import me.defying.chili.log.LogLevel;
  * @author Rafael Marmelo
  * @since 1.0
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Log {
