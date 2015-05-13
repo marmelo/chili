@@ -228,7 +228,15 @@ public class MemoizeTest extends ChiliTest {
     @Test
     public void nullResultTest() {
         Wrap a = service.nullResult("a");
+        Wrap a1 = service.nullResult("a");
         assertNull(a);
+        assertNull(a1);
+        
+        // check statistics log if second request was cached
+        String[] lines = log.toString().split("\n");
+        assertEquals(2, lines.length);
+        assertMatches(lines[0].trim(), "^DEBUG Method MemoizeTestService\\.nullResult :: 1 requests :: 0 hits \\(0\\.0%\\)\\.$");
+        assertMatches(lines[1].trim(), "^DEBUG Method MemoizeTestService\\.nullResult :: 2 requests :: 1 hits \\(50\\.0%\\)\\.$");
     }
     
     /**

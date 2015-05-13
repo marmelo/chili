@@ -90,7 +90,7 @@ public class MemoizeTestService {
         return new Wrap(x);
     }
 
-    @Memoize
+    @Memoize(statistics = true)
     public Wrap nullResult(String x) {
         return null;
     }
