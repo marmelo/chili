@@ -22,31 +22,43 @@
  */
 package me.defying.chili.module;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-
-import me.defying.chili.Log;
-import me.defying.chili.Memoize;
-import me.defying.chili.Timeout;
-import me.defying.chili.log.LogInterceptor;
-import me.defying.chili.memoize.MemoizeInterceptor;
-import me.defying.chili.timeout.TimeoutInterceptor;
-
 /**
- * Guava module that configures all Chili annotations.
+ * Exception thrown when the underlying method invocation throws an exception.
+ * This exception wraps the underlying exception to be rethrown by the
+ * interceptor to existing code.
  * 
- * <p>An instance of this module must be passed into the
- * {@code Guice.createInjector} method along side with other existing modules.
+ * This is an internal exception thus external code is never aware of it.
  * 
  * @author Rafael Marmelo
- * @since 1.0
+ * @since 1.1
  */
-public class ChiliModule extends AbstractModule {
+public class ChiliException extends Exception {
 
-    @Override
-    protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Timeout.class), new TimeoutInterceptor());
+    /**
+     * Creates a new instance of <code>ChiliException</code> without detail
+     * message.
+     */
+    public ChiliException() {
+        // empty
+    }
+
+    /**
+     * Constructs an instance of <code>ChiliException</code> with the
+     * specified detail message.
+     *
+     * @param message the detail message.
+     */
+    public ChiliException(String message) {
+        super(message);
+    }
+
+    /**
+     * Constructs an instance of <code>ChiliException</code> with the
+     * specified cause.
+     *
+     * @param cause the cause.
+     */
+    public ChiliException(Throwable cause) {
+        super(cause);
     }
 }

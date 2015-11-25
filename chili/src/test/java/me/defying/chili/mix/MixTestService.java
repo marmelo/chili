@@ -24,6 +24,7 @@ package me.defying.chili.mix;
 
 import me.defying.chili.Log;
 import me.defying.chili.Memoize;
+import me.defying.chili.Timeout;
 import me.defying.chili.memoize.Wrap;
 
 /**
@@ -36,6 +37,7 @@ public class MixTestService {
 
     @Log
     @Memoize
+    @Timeout
     public Wrap simple(String x) {
         return new Wrap(x);
     }

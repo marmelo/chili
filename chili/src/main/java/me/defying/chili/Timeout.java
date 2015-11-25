@@ -20,33 +20,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.module;
+package me.defying.chili;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-
-import me.defying.chili.Log;
-import me.defying.chili.Memoize;
-import me.defying.chili.Timeout;
-import me.defying.chili.log.LogInterceptor;
-import me.defying.chili.memoize.MemoizeInterceptor;
-import me.defying.chili.timeout.TimeoutInterceptor;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Guava module that configures all Chili annotations.
- * 
- * <p>An instance of this module must be passed into the
- * {@code Guice.createInjector} method along side with other existing modules.
+ * Indicates that a method invocation is time limited.
  * 
  * @author Rafael Marmelo
- * @since 1.0
+ * @since 1.1
  */
-public class ChiliModule extends AbstractModule {
-
-    @Override
-    protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Timeout.class), new TimeoutInterceptor());
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Timeout {
+    
+    /**
+     * Returns for how long the method invocation should be time limited
+     * according to the {@code TimeUnit} value. If unspecified or equal to zero
+     * the method invocation will not be time bounded.
+     * @return how long the method invocation should be time limited.
+     */
+    long time() default 0;
+    
+    /**
+     * Returns the {@code TimeUnit} the time value refers to.
+     * @return the {@code TimeUnit} the time value refers to. 
+     */
+    TimeUnit unit() default TimeUnit.MILLISECONDS;
 }

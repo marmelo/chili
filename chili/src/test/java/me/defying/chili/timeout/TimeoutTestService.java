@@ -20,33 +20,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.module;
+package me.defying.chili.timeout;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
-import me.defying.chili.Log;
-import me.defying.chili.Memoize;
 import me.defying.chili.Timeout;
-import me.defying.chili.log.LogInterceptor;
-import me.defying.chili.memoize.MemoizeInterceptor;
-import me.defying.chili.timeout.TimeoutInterceptor;
 
 /**
- * Guava module that configures all Chili annotations.
- * 
- * <p>An instance of this module must be passed into the
- * {@code Guice.createInjector} method along side with other existing modules.
+ * Test service for {@code Timeout} annotation.
  * 
  * @author Rafael Marmelo
- * @since 1.0
+ * @since 1.1
  */
-public class ChiliModule extends AbstractModule {
+public class TimeoutTestService {
 
-    @Override
-    protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Timeout.class), new TimeoutInterceptor());
+    public void noTimeout() throws InterruptedException {
+        Thread.sleep(100);
+    }
+
+    @Timeout
+    public void emptyTimeout() throws InterruptedException {
+        Thread.sleep(100);
+    }
+
+    @Timeout(time = 100)
+    public void wait100Timeout(long sleep) throws InterruptedException {
+        Thread.sleep(sleep);
+    }
+
+    @Timeout(time = 1, unit = TimeUnit.SECONDS)
+    public void wait200Timeout(long sleep) throws InterruptedException {
+        Thread.sleep(sleep);
+    }
+
+    @Timeout(time = 200)
+    public void exceptionTimeout() throws Exception {
+        throw new IOException();
     }
 }

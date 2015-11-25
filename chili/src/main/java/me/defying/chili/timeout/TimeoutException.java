@@ -20,33 +20,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.module;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-
-import me.defying.chili.Log;
-import me.defying.chili.Memoize;
-import me.defying.chili.Timeout;
-import me.defying.chili.log.LogInterceptor;
-import me.defying.chili.memoize.MemoizeInterceptor;
-import me.defying.chili.timeout.TimeoutInterceptor;
+package me.defying.chili.timeout;
 
 /**
- * Guava module that configures all Chili annotations.
- * 
- * <p>An instance of this module must be passed into the
- * {@code Guice.createInjector} method along side with other existing modules.
+ * Exception thrown when the underlying method invocation times out.
  * 
  * @author Rafael Marmelo
- * @since 1.0
+ * @since 1.1
  */
-public class ChiliModule extends AbstractModule {
+public class TimeoutException extends RuntimeException {
 
-    @Override
-    protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(Timeout.class), new TimeoutInterceptor());
+    /**
+     * Creates a new instance of <code>TimeoutException</code> without detail
+     * message.
+     */
+    public TimeoutException() {
+        // empty
+    }
+
+    /**
+     * Constructs an instance of <code>TimeoutException</code> with the
+     * specified detail message.
+     *
+     * @param message the detail message.
+     */
+    public TimeoutException(String message) {
+        super(message);
+    }
+
+    /**
+     * Constructs an instance of <code>TimeoutException</code> with the
+     * specified cause.
+     *
+     * @param cause the cause.
+     */
+    public TimeoutException(Throwable cause) {
+        super(cause);
     }
 }

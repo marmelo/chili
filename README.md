@@ -15,6 +15,7 @@ The following [annotations](#annotations) are currently implemented:
 
 - [@Log](#log) - Log method invocation.
 - [@Memoize](#memoize) - Cache the method computed result.
+- [@Timeout](#timeout) - Interrupt method invocation if time limit is exceeded.
 
 
 ## Configuration
@@ -168,3 +169,14 @@ The [@Memoize](#memoize) annotation accepts the following elements:
 | ```statistics``` | boolean  | false        | Whether or not cache statistics should be logged. |
 
 When the ```size``` and ```time``` values are active, both are enforced.
+
+#### @Timeout
+
+Interrupts method invocation if time limit is exceeded. When time is exceeded invocation is interrupted and a ```TimeoutException``` exception is thrown.
+
+The [@Timeout](#timeout) annotation accepts the following elements:
+
+| Element    | Type     | Default      | Description  |
+| ---------- | -------- | ------------ | ------------ |
+| ```time```       | long     | 0L           | For how long the method invocation should be time limited according to the ```unit``` value. If unspecified or equal to zero the method will not be time bound. |
+| ```unit```       | TimeUnit | MILLISECONDS | The ```TimeUnit``` the ```time``` value refers to. |

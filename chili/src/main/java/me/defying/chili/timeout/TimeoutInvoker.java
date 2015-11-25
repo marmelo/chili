@@ -20,43 +20,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.defying.chili.memoize;
+package me.defying.chili.timeout;
+
+import java.util.concurrent.Callable;
+import me.defying.chili.module.ChiliException;
+import org.aopalliance.intercept.MethodInvocation;
 
 /**
- * Exception thrown when the memoized underlying method invocation throws an
- * exception. This exception wraps the underlying exception to be rethrown by
- * the interceptor to existing code.
+ * Invokes the underlying method of a timeout operation.
  * 
  * @author Rafael Marmelo
- * @since 1.0
+ * @since 1.1
  */
-public class MemoizeException extends Exception {
+public class TimeoutInvoker implements Callable<Object> {
+    private final MethodInvocation invocation;
 
-    /**
-     * Creates a new instance of <code>MemoizeException</code> without detail
-     * message.
-     */
-    public MemoizeException() {
-        // empty
+    public TimeoutInvoker(MethodInvocation invocation) {
+        this.invocation = invocation;
     }
 
-    /**
-     * Constructs an instance of <code>MemoizeException</code> with the
-     * specified detail message.
-     *
-     * @param message the detail message.
-     */
-    public MemoizeException(String message) {
-        super(message);
-    }
-
-    /**
-     * Constructs an instance of <code>MemoizeException</code> with the
-     * specified cause.
-     *
-     * @param cause the cause.
-     */
-    public MemoizeException(Throwable cause) {
-        super(cause);
+    @Override
+    public Object call() throws Exception {
+        try {
+            return invocation.proceed();
+        } catch (Throwable ex) {
+            // when the underlying method invokation throws an exception it is
+            // wrapped and sent to the interceptor in order to existing code get
+            // the real exception
+            throw new ChiliException(ex);
+        }
     }
 }

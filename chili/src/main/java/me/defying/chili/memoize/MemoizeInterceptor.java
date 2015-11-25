@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import me.defying.chili.Memoize;
+import me.defying.chili.module.ChiliException;
 import me.defying.chili.util.InvocationUtils;
 
 /**
@@ -83,7 +84,7 @@ public class MemoizeInterceptor implements MethodInterceptor {
         } catch (ExecutionException ex) {
             // when the underlying method invokation throws an exception we need
             // to unrap it in order to existing code get the real exception
-            if (ex.getCause() instanceof MemoizeException) {
+            if (ex.getCause() instanceof ChiliException) {
                 throw ex.getCause().getCause();
             } else {
                 throw ex.getCause();

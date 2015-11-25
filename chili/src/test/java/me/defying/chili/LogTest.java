@@ -22,7 +22,6 @@
  */
 package me.defying.chili;
 
-
 import java.io.IOException;
 
 import com.google.inject.Inject;
@@ -30,7 +29,6 @@ import org.junit.Test;
 
 import me.defying.chili.log.LogTestService;
 import me.defying.chili.util.ChiliTest;
-
 
 /**
  * Test class for {@code Log} annotation.

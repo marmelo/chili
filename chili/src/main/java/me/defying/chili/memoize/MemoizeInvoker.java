@@ -25,6 +25,7 @@ package me.defying.chili.memoize;
 import java.util.concurrent.Callable;
 
 import com.google.common.base.Optional;
+import me.defying.chili.module.ChiliException;
 import org.aopalliance.intercept.MethodInvocation;
 
 /**
@@ -50,7 +51,7 @@ public class MemoizeInvoker implements Callable<Optional<Object>> {
             // when the underlying method invokation throws an exception it is
             // wrapped and sent to the interceptor in order to existing code get
             // the real exception
-            throw new MemoizeException(ex);
+            throw new ChiliException(ex);
         }
 
         // guava caches do not allow null values
