@@ -23,6 +23,7 @@
 package me.defying.chili.log;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.base.Joiner;
@@ -67,15 +68,44 @@ public class LogInterceptor implements MethodInterceptor {
         final Object result = invocation.proceed();
         time = System.currentTimeMillis() - time;
 
-        // log
-        log(annotation.level(), "Invoked {}.{}({}) => {} in {} ms.",
-                clazz.getSimpleName(),
-                method.getName(),
-                Joiner.on(", ").join(arguments),
-                result,
-                time);
+        if (!annotation.onlyTypes()) {
+            // log real values
+            log(annotation.level(), "Invoked {}.{}({}) => {} in {} ms.",
+                    clazz.getSimpleName(),
+                    method.getName(),
+                    Joiner.on(", ").join(arguments),
+                    result,
+                    time);
+        } else {
+            final List<Object> argumentsTypes = new ArrayList<>();
+            final Object resultType;
+
+            // convert instances to types
+            for (final Object argument : arguments) {
+                argumentsTypes.add(typeOf(argument));
+            }
+            resultType = typeOf(result);
+
+            // log only types
+            log(annotation.level(), "Invoked {}.{}({}) => {} in {} ms.",
+                    clazz.getSimpleName(),
+                    method.getName(),
+                    Joiner.on(", ").join(argumentsTypes),
+                    resultType,
+                    time);
+        }
 
         return result;
+    }
+
+    /**
+     * Converts an instance to its type.
+     *
+     * @param obj the instance.
+     * @return the instance's type.
+     */
+    private String typeOf(final Object obj) {
+        return obj == null ? "null" : obj.getClass().getSimpleName();
     }
 
     /**

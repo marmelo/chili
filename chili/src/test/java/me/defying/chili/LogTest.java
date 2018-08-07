@@ -23,6 +23,7 @@
 package me.defying.chili;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.inject.Inject;
 import org.junit.Test;
@@ -145,5 +146,15 @@ public class LogTest extends ChiliTest {
     @Test(expected = IOException.class)
     public void exceptionTest() throws Exception {
         service.exception();
+    }
+
+    /**
+     * Test that logged functions may throw exceptions.
+     */
+    @Test
+    public void typesTest() throws Exception {
+        service.onlyTypes(1L, "str", Arrays.asList("str"), new Double[] {}, null);
+        System.out.println(LOG.toString().trim());
+        assertMatches(LOG.toString().trim(), String.format(format, "LogTestService.onlyTypes", "Long, String, ArrayList, Double\\[\\], null", "Integer"));
     }
 }

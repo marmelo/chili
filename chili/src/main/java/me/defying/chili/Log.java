@@ -47,4 +47,13 @@ public @interface Log {
      * @return the log level.
      */
     LogLevel level() default LogLevel.DEBUG;
+
+    /**
+     * Returns whether or not only method arguments and return types should be
+     * logged. If false, the real values are logged.
+     *
+     * @return whether or not only method arguments and return types should be
+     * logged. If false, the real values are logged.
+     */
+    boolean onlyTypes() default false;
 }

@@ -23,6 +23,7 @@
 package me.defying.chili.log;
 
 import java.io.IOException;
+import java.util.List;
 
 import me.defying.chili.Log;
 
@@ -92,5 +93,11 @@ public class LogTestService {
     @Log
     public void exception() throws Exception {
         throw new IOException();
+    }
+
+    @Log(onlyTypes = true)
+    public int onlyTypes(final long primitive, final String string,
+            final List<String> list, final Double[] array, final String nulls) {
+        return 1;
     }
 }
