@@ -43,41 +43,51 @@ import me.defying.chili.util.InvocationUtils;
 
 /**
  * Guice interceptor for {@code Memoize} annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MemoizeInterceptor implements MethodInterceptor {
-    final Logger logger = LoggerFactory.getLogger(MemoizeInterceptor.class);
-    
+
+    /**
+     * The logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(MemoizeInterceptor.class);
+
+    /**
+     * The cache.
+     */
     private final LoadingCache<Method, Cache<Object, Optional<Object>>> caches = CacheBuilder
             .newBuilder()
             .build(new MemoizeCacheLoader());
-    
+
+    /**
+     * Constructs an instance of <code>MemoizeInterceptor</code>.
+     */
     public MemoizeInterceptor() {
         // empty
     }
-    
+
     @Override
     public Object invoke(final MethodInvocation invocation) throws Throwable {
-        Object result;
-        
+        final Object result;
+
         // get annotation, class, method and arguments
-        Memoize annotation = InvocationUtils.getAnnotation(invocation, Memoize.class);
-        Class clazz = InvocationUtils.getClass(invocation);
-        Method method = InvocationUtils.getMethod(invocation);
-        List<Object> arguments = InvocationUtils.getArguments(invocation);
-        
+        final Memoize annotation = InvocationUtils.getAnnotation(invocation, Memoize.class);
+        final Class clazz = InvocationUtils.getClass(invocation);
+        final Method method = InvocationUtils.getMethod(invocation);
+        final List<Object> arguments = InvocationUtils.getArguments(invocation);
+
         // get or create method cache
-        Cache<Object, Optional<Object>> cache = caches.get(method);
-        
+        final Cache<Object, Optional<Object>> cache = caches.get(method);
+
         // immutable object lists can compared
         // cannot use Guava ImmutableList because the list may contain nulls
-        List<Object> key = Collections.unmodifiableList(arguments);
-        
+        final List<Object> key = Collections.unmodifiableList(arguments);
+
         // underlying method invoker
-        Callable<Optional<Object>> invoker = new MemoizeInvoker(invocation);
-        
+        final Callable<Optional<Object>> invoker = new MemoizeInvoker(invocation);
+
         try {
             // get or compute result
             result = cache.get(key, invoker).orNull();
@@ -90,17 +100,17 @@ public class MemoizeInterceptor implements MethodInterceptor {
                 throw ex.getCause();
             }
         }
-        
+
         // log statistics
         if (annotation.statistics()) {
-            logger.debug("Method {}.{} :: {} requests :: {} hits ({}%).",
+            LOGGER.debug("Method {}.{} :: {} requests :: {} hits ({}%).",
                     clazz.getSimpleName(),
                     method.getName(),
                     cache.stats().requestCount(),
                     cache.stats().hitCount(),
                     ((int) (cache.stats().hitRate() * 1000)) / 10.0);
         }
-        
+
         return result;
     }
 }

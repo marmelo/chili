@@ -24,14 +24,14 @@ package me.defying.chili.memoize;
 
 /**
  * A wrapper class to be used while testing {@code Memoize} annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class Wrap {
     private final Object value;
 
-    public Wrap(Object value) {
+    public Wrap(final Object value) {
         this.value = value;
     }
 

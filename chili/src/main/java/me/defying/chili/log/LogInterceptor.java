@@ -41,25 +41,32 @@ import me.defying.chili.util.InvocationUtils;
  * @since 1.0
  */
 public class LogInterceptor implements MethodInterceptor {
-    final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
-    
+
+    /**
+     * The logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogInterceptor.class);
+
+    /**
+     * Constructs an instance of <code>LogInterceptor</code>.
+     */
     public LogInterceptor() {
         // empty
     }
-    
+
     @Override
     public Object invoke(final MethodInvocation invocation) throws Throwable {
         // get annotation, class, method and arguments
-        Log annotation = InvocationUtils.getAnnotation(invocation, Log.class);
-        Class clazz = InvocationUtils.getClass(invocation);
-        Method method = InvocationUtils.getMethod(invocation);
-        List<Object> arguments = InvocationUtils.getArguments(invocation);
-        
+        final Log annotation = InvocationUtils.getAnnotation(invocation, Log.class);
+        final Class clazz = InvocationUtils.getClass(invocation);
+        final Method method = InvocationUtils.getMethod(invocation);
+        final List<Object> arguments = InvocationUtils.getArguments(invocation);
+
         // capture execution time
         long time = System.currentTimeMillis();
-        Object result = invocation.proceed();
+        final Object result = invocation.proceed();
         time = System.currentTimeMillis() - time;
-        
+
         // log
         log(annotation.level(), "Invoked {}.{}({}) => {} in {} ms.",
                 clazz.getSimpleName(),
@@ -67,34 +74,36 @@ public class LogInterceptor implements MethodInterceptor {
                 Joiner.on(", ").join(arguments),
                 result,
                 time);
-        
+
         return result;
     }
-    
+
     /**
      * Logs a message with a custom level.
-     * 
+     *
      * @param level the log level
-     * @param message the message to be logged 
+     * @param message the message to be logged
      * @param args the list of optional message arguments
      */
     private void log(final LogLevel level, final String message, final Object... args) {
         switch (level) {
             case TRACE:
-                logger.trace(message, args);
+                LOGGER.trace(message, args);
                 break;
             case DEBUG:
-                logger.debug(message, args);
+                LOGGER.debug(message, args);
                 break;
             case INFO:
-                logger.info(message, args);
+                LOGGER.info(message, args);
                 break;
             case WARNING:
-                logger.warn(message, args);
+                LOGGER.warn(message, args);
                 break;
             case ERROR:
-                logger.error(message, args);
+                LOGGER.error(message, args);
                 break;
+            default:
+                // do nothing
         }
     }
 }

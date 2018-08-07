@@ -34,10 +34,10 @@ import me.defying.chili.timeout.TimeoutInterceptor;
 
 /**
  * Guava module that configures all Chili annotations.
- * 
+ *
  * <p>An instance of this module must be passed into the
  * {@code Guice.createInjector} method along side with other existing modules.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */

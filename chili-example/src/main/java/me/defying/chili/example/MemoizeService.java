@@ -26,22 +26,22 @@ import me.defying.chili.Memoize;
 
 /**
  * Example of {@code Memoize} annotation.
- * 
+ *
  * <p>Please refer to {@code MemoizeTestService} for further examples.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MemoizeService {
-    
+
     /**
      * Returns the given value raised to the power of two.
-     * 
+     *
      * @param x the base value.
      * @return the value {@code x}<sup>2</sup>.
      */
     @Memoize(size = 3, statistics = true)
-    public int power(int x) {
+    public int power(final int x) {
         return x * x;
     }
 }

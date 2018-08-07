@@ -35,15 +35,15 @@ import me.defying.chili.module.ChiliModule;
 
 /**
  * Abstract class to be used by Chili project tests.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public abstract class ChiliTest {
-    
+
     // output stream that will hold log entries
-    protected static final ByteArrayOutputStream log = new ByteArrayOutputStream();
-    
+    protected static final ByteArrayOutputStream LOG = new ByteArrayOutputStream();
+
     // pattern format to be compared with log entries
     protected final String format = "^DEBUG Invoked %s\\(%s\\) => %s in [0-9]+ ms\\.$";
 
@@ -56,30 +56,30 @@ public abstract class ChiliTest {
 
         // redefine error output stream to something we may read
         // slf4j-simple logger writes log to System.err by default
-        System.setErr(new PrintStream(log));
+        System.setErr(new PrintStream(LOG));
     }
-    
+
     @Before
     public void setUp() {
-        Injector injector = Guice.createInjector(new ChiliModule());
+        final Injector injector = Guice.createInjector(new ChiliModule());
         injector.injectMembers(this);
-        
+
         // reset log before test
-        log.reset();
+        LOG.reset();
     }
-    
+
     //
     // helpers
     //
-    
+
     /**
      * Asserts that a string matches a regular expression.
      * If it doesn't it throws an AssertionError without a message.
-     * 
+     *
      * @param pattern the regular expression
      * @param string the string to be checked against the pattern
      */
-    protected void assertMatches(String pattern, String string) {
+    protected void assertMatches(final String pattern, final String string) {
         assertTrue(pattern.matches(string));
     }
 }

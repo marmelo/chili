@@ -33,15 +33,22 @@ import org.aopalliance.intercept.MethodInvocation;
 
 /**
  * AOP method invocation helpers.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
-public class InvocationUtils {
-    
+public final class InvocationUtils {
+
+    /**
+     * Prevent instantiation of utility class.
+     */
+    private InvocationUtils() {
+        // emtpy
+    }
+
     /**
      * Returns the annotation for the specified annotation type.
-     * 
+     *
      * @param <T> the annotation type
      * @param invocation the method invocation
      * @param annotation the type of annotation
@@ -50,61 +57,61 @@ public class InvocationUtils {
     public static <T extends Annotation> T getAnnotation(final MethodInvocation invocation, final Class<T> annotation) {
         return invocation.getMethod().getAnnotation(annotation);
     }
-    
+
     /**
      * Returns the class being invoked.
-     * 
+     *
      * @param invocation the method invocation
      * @return the class being invoked
      */
     public static Class getClass(final MethodInvocation invocation) {
         return invocation.getThis().getClass().getSuperclass();
     }
-    
+
     /**
      * Returns the method being invoked.
-     * 
+     *
      * @param invocation the method invocation
      * @return the method being invoked
      */
     public static Method getMethod(final MethodInvocation invocation) {
         return invocation.getMethod();
     }
-    
+
     /**
      * Returns the arguments of the method invocation.
-     * 
+     *
      * @param invocation the method invocation
      * @return the arguments of the method invocation
      */
     public static List<Object> getArguments(final MethodInvocation invocation) {
         // get method arguments
-        List<Object> arguments = new ArrayList(Arrays.asList(invocation.getArguments()));
-        
+        final List<Object> arguments = new ArrayList(Arrays.asList(invocation.getArguments()));
+
         // if the method contains a varargs then the last parameter must be flattened
         if (invocation.getMethod().isVarArgs() && !arguments.isEmpty()) {
-            int last = arguments.size() - 1;
-            Object varargs = arguments.remove(last);
+            final int last = arguments.size() - 1;
+            final Object varargs = arguments.remove(last);
             arguments.addAll(convert(varargs));
         }
-        
+
         return arguments;
     }
-    
+
     /**
      * Converts an {@code Object} array into a {@code List}.
-     * 
+     *
      * @param array the array of objects
      * @return the list of objects
      */
-    private static List<Object> convert(Object array) {
-        List<Object> result = new ArrayList<>();
-        int length = Array.getLength(array);
-        
+    private static List<Object> convert(final Object array) {
+        final List<Object> result = new ArrayList<>();
+        final int length = Array.getLength(array);
+
         for (int i = 0; i < length; ++i) {
             result.add(Array.get(array, i));
         }
-        
+
         return result;
     }
 }

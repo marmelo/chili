@@ -34,16 +34,16 @@ import me.defying.chili.Memoize;
 /**
  * Creates a Guava cache for a specific method using the attributes provided by
  * the {@code Memoize} annotation attributes.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MemoizeCacheLoader extends CacheLoader<Method, Cache<Object, Optional<Object>>> {
 
     @Override
-    public Cache<Object, Optional<Object>> load(Method key) throws Exception {
-        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
-        Memoize annotation = key.getAnnotation(Memoize.class);
+    public Cache<Object, Optional<Object>> load(final Method key) throws Exception {
+        final CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
+        final Memoize annotation = key.getAnnotation(Memoize.class);
 
         if (annotation.size() > 0) {
             builder.maximumSize(annotation.size());

@@ -29,8 +29,6 @@ import com.google.common.util.concurrent.TimeLimiter;
 import com.google.common.util.concurrent.UncheckedTimeoutException;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import me.defying.chili.Timeout;
 import me.defying.chili.module.ChiliException;
@@ -43,27 +41,29 @@ import me.defying.chili.util.InvocationUtils;
  * @since 1.1
  */
 public class TimeoutInterceptor implements MethodInterceptor {
-    final Logger logger = LoggerFactory.getLogger(TimeoutInterceptor.class);
-    
+
+    /**
+     * Constructs an instance of <code>TimeoutInterceptor</code>.
+     */
     public TimeoutInterceptor() {
         // empty
     }
-    
+
     @Override
     public Object invoke(final MethodInvocation invocation) throws Throwable {
         // get annotation, class, method and arguments
-        Timeout annotation = InvocationUtils.getAnnotation(invocation, Timeout.class);
-        
+        final Timeout annotation = InvocationUtils.getAnnotation(invocation, Timeout.class);
+
         // do nothing
         if (annotation.time() <= 0) {
             return invocation.proceed();
         }
-        
-        TimeLimiter limiter = new SimpleTimeLimiter();
-        
+
+        final TimeLimiter limiter = new SimpleTimeLimiter();
+
         // underlying method invoker
-        Callable<Object> invoker = new TimeoutInvoker(invocation);
-        
+        final Callable<Object> invoker = new TimeoutInvoker(invocation);
+
         try {
             return limiter.callWithTimeout(invoker, annotation.time(), annotation.unit(), true);
         } catch (UncheckedTimeoutException ex) {

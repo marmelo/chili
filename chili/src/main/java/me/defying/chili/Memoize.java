@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Indicates that a method invocation is cached.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
@@ -39,30 +39,34 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Memoize {
-    
+
     /**
      * Returns the maximum entries the cache may have.
-     * @return the maximum entries the cache may have. 
+     *
+     * @return the maximum entries the cache may have.
      */
     long size() default 0;
-    
+
     /**
      * Returns for how long the method invocation should be cached according to
      * the {@code TimeUnit} value. If unspecified or equal to zero the cache
      * will not be time bound.
+     *
      * @return how long the method invocation should be cached.
      */
     long time() default 0;
-    
+
     /**
      * Returns the {@code TimeUnit} the time value refers to.
-     * @return the {@code TimeUnit} the time value refers to. 
+     *
+     * @return the {@code TimeUnit} the time value refers to.
      */
     TimeUnit unit() default TimeUnit.MILLISECONDS;
-    
+
     /**
      * Returns whether or not cache statistics should be logged.
-     * @return whether or not cache statistics should be logged. 
+     *
+     * @return whether or not cache statistics should be logged.
      */
     boolean statistics() default false;
 }

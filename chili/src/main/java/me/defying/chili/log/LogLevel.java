@@ -24,7 +24,7 @@ package me.defying.chili.log;
 
 /**
  * Logging levels.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */

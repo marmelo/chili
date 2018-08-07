@@ -32,7 +32,7 @@ import me.defying.chili.log.LogLevel;
 
 /**
  * Indicates that a method invocation is logged.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
@@ -40,9 +40,10 @@ import me.defying.chili.log.LogLevel;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Log {
-    
+
     /**
      * Returns the log level.
+     *
      * @return the log level.
      */
     LogLevel level() default LogLevel.DEBUG;

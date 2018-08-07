@@ -26,9 +26,9 @@ package me.defying.chili.module;
  * Exception thrown when the underlying method invocation throws an exception.
  * This exception wraps the underlying exception to be rethrown by the
  * interceptor to existing code.
- * 
+ *
  * This is an internal exception thus external code is never aware of it.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.1
  */
@@ -48,7 +48,7 @@ public class ChiliException extends Exception {
      *
      * @param message the detail message.
      */
-    public ChiliException(String message) {
+    public ChiliException(final String message) {
         super(message);
     }
 
@@ -58,7 +58,7 @@ public class ChiliException extends Exception {
      *
      * @param cause the cause.
      */
-    public ChiliException(Throwable cause) {
+    public ChiliException(final Throwable cause) {
         super(cause);
     }
 }

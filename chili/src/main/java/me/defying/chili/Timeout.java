@@ -30,25 +30,27 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Indicates that a method invocation is time limited.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.1
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Timeout {
-    
+
     /**
      * Returns for how long the method invocation should be time limited
      * according to the {@code TimeUnit} value. If unspecified or equal to zero
      * the method invocation will not be time bounded.
+     *
      * @return how long the method invocation should be time limited.
      */
     long time() default 0;
-    
+
     /**
      * Returns the {@code TimeUnit} the time value refers to.
-     * @return the {@code TimeUnit} the time value refers to. 
+     *
+     * @return the {@code TimeUnit} the time value refers to.
      */
     TimeUnit unit() default TimeUnit.MILLISECONDS;
 }

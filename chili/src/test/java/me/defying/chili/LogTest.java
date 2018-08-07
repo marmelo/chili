@@ -32,7 +32,7 @@ import me.defying.chili.util.ChiliTest;
 
 /**
  * Test class for {@code Log} annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
@@ -46,7 +46,7 @@ public class LogTest extends ChiliTest {
     @Test
     public void simpleTest() {
         service.simple();
-        assertMatches(log.toString().trim(), String.format(format, "LogTestService.simple", "", "null"));
+        assertMatches(LOG.toString().trim(), String.format(format, "LogTestService.simple", "", "null"));
     }
 
     /**
@@ -55,7 +55,7 @@ public class LogTest extends ChiliTest {
     @Test
     public void levelTraceTest() {
         service.levelTrace();
-        assertMatches(log.toString().trim(), "^TRACE .*$");
+        assertMatches(LOG.toString().trim(), "^TRACE .*$");
     }
 
     /**
@@ -64,7 +64,7 @@ public class LogTest extends ChiliTest {
     @Test
     public void levelDebugTest() {
         service.levelDebug();
-        assertMatches(log.toString().trim(), "^DEBUG .*$");
+        assertMatches(LOG.toString().trim(), "^DEBUG .*$");
     }
 
     /**
@@ -73,7 +73,7 @@ public class LogTest extends ChiliTest {
     @Test
     public void levelInfoTest() {
         service.levelInfo();
-        assertMatches(log.toString().trim(), "^INFO .*$");
+        assertMatches(LOG.toString().trim(), "^INFO .*$");
     }
 
     /**
@@ -82,7 +82,7 @@ public class LogTest extends ChiliTest {
     @Test
     public void levelWarningTest() {
         service.levelWarning();
-        assertMatches(log.toString().trim(), "^WARN .*$");
+        assertMatches(LOG.toString().trim(), "^WARN .*$");
     }
 
     /**
@@ -91,54 +91,54 @@ public class LogTest extends ChiliTest {
     @Test
     public void levelErrorTest() {
         service.levelError();
-        assertMatches(log.toString().trim(), "^ERROR .*$");
+        assertMatches(LOG.toString().trim(), "^ERROR .*$");
     }
-    
+
     /**
      * Test logging with one argument and void return.
      */
     @Test
     public void hasArgumentTest() {
         service.hasArgument(1);
-        assertMatches(log.toString().trim(), String.format(format, "LogTestService.hasArgument", "1", "null"));
+        assertMatches(LOG.toString().trim(), String.format(format, "LogTestService.hasArgument", "1", "null"));
     }
-    
+
     /**
      * Test logging with two arguments and void return.
      */
     @Test
     public void hasArgumentsTest() {
         service.hasArguments(1, 2);
-        assertMatches(log.toString().trim(), String.format(format, "LogTestService.hasArguments", "1, 2", "null"));
+        assertMatches(LOG.toString().trim(), String.format(format, "LogTestService.hasArguments", "1, 2", "null"));
     }
-    
+
     /**
      * Test logging with varargs and void return.
      */
     @Test
     public void hasVarArgsTest() {
         service.hasVarArgs(1, 2, 3, 4, 5);
-        assertMatches(log.toString().trim(), String.format(format, "LogTestService.hasVarArgs", "1, 2, 3, 4, 5", "null"));
+        assertMatches(LOG.toString().trim(), String.format(format, "LogTestService.hasVarArgs", "1, 2, 3, 4, 5", "null"));
     }
-    
+
     /**
      * Test logging without arguments and with return.
      */
     @Test
     public void hasReturnTest() {
         service.hasReturn();
-        assertMatches(log.toString().trim(), String.format(format, "LogTestService.hasReturn", "", "1"));
+        assertMatches(LOG.toString().trim(), String.format(format, "LogTestService.hasReturn", "", "1"));
     }
-    
+
     /**
      * Test logging with one argument and with return.
      */
     @Test
     public void hasArgumentAndReturnTest() {
         service.hasArgumentAndReturn(1);
-        assertMatches(log.toString().trim(), String.format(format, "LogTestService.hasArgumentAndReturn", "1", "1"));
+        assertMatches(LOG.toString().trim(), String.format(format, "LogTestService.hasArgumentAndReturn", "1", "1"));
     }
-    
+
     /**
      * Test that logged functions may throw exceptions.
      */

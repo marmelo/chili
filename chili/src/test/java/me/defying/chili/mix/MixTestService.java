@@ -29,7 +29,7 @@ import me.defying.chili.memoize.Wrap;
 
 /**
  * Test service for multiple annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
@@ -38,7 +38,7 @@ public class MixTestService {
     @Log
     @Memoize
     @Timeout
-    public Wrap simple(String x) {
+    public Wrap simple(final String x) {
         return new Wrap(x);
     }
 }

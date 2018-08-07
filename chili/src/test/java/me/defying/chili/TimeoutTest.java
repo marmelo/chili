@@ -33,7 +33,7 @@ import me.defying.chili.util.ChiliTest;
 
 /**
  * Test class for {@code Timeout} annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.1
  */
@@ -61,7 +61,7 @@ public class TimeoutTest extends ChiliTest {
 
     /**
      * Test timeout success (timeouts at 100ms and work takes 200ms).
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @Test(expected = TimeoutException.class)
     public void successTimeoutTest() throws InterruptedException {

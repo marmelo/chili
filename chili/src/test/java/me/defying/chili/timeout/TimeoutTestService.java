@@ -29,7 +29,7 @@ import me.defying.chili.Timeout;
 
 /**
  * Test service for {@code Timeout} annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.1
  */
@@ -45,12 +45,12 @@ public class TimeoutTestService {
     }
 
     @Timeout(time = 100)
-    public void wait100Timeout(long sleep) throws InterruptedException {
+    public void wait100Timeout(final long sleep) throws InterruptedException {
         Thread.sleep(sleep);
     }
 
     @Timeout(time = 1, unit = TimeUnit.SECONDS)
-    public void wait200Timeout(long sleep) throws InterruptedException {
+    public void wait200Timeout(final long sleep) throws InterruptedException {
         Thread.sleep(sleep);
     }
 

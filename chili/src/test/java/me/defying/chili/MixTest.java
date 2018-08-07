@@ -33,30 +33,30 @@ import me.defying.chili.util.ChiliTest;
 
 /**
  * Test class for multiple annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MixTest extends ChiliTest {
     @Inject
     private MixTestService service;
-    
+
     /**
      * Test multiple annotations.
      */
     @Test
     public void simpleTest() {
         // different arguments yield different results
-        Wrap a = service.simple("a");
-        Wrap b = service.simple("b");
+        final Wrap a = service.simple("a");
+        final Wrap b = service.simple("b");
         assertNotEquals(a, b);
 
         // equal arguments yield the same, cached, result
-        Wrap a1 = service.simple("a");
+        final Wrap a1 = service.simple("a");
         assertEquals(a, a1);
-        
+
         // assert log
-        String[] lines = log.toString().split("\n");
+        final String[] lines = LOG.toString().split("\n");
         assertEquals(3, lines.length);
         assertMatches(lines[0].trim(), String.format(format, "MixTestService.simple", "a", ".*"));
         assertMatches(lines[1].trim(), String.format(format, "MixTestService.simple", "b", ".*"));

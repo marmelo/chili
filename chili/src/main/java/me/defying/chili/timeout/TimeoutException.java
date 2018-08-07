@@ -24,14 +24,14 @@ package me.defying.chili.timeout;
 
 /**
  * Exception thrown when the underlying method invocation times out.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.1
  */
 public class TimeoutException extends RuntimeException {
 
     /**
-     * Creates a new instance of <code>TimeoutException</code> without detail
+     * Constructs an instance of <code>TimeoutException</code> without detail
      * message.
      */
     public TimeoutException() {
@@ -44,7 +44,7 @@ public class TimeoutException extends RuntimeException {
      *
      * @param message the detail message.
      */
-    public TimeoutException(String message) {
+    public TimeoutException(final String message) {
         super(message);
     }
 
@@ -54,7 +54,7 @@ public class TimeoutException extends RuntimeException {
      *
      * @param cause the cause.
      */
-    public TimeoutException(Throwable cause) {
+    public TimeoutException(final Throwable cause) {
         super(cause);
     }
 }

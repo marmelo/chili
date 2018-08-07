@@ -29,39 +29,39 @@ import me.defying.chili.Memoize;
 
 /**
  * Test service for {@code Memoize} annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MemoizeTestService {
 
     @Memoize
-    public Wrap simple(String x) {
+    public Wrap simple(final String x) {
         return new Wrap(x);
     }
 
     @Memoize(size = 3)
-    public Wrap keep3(String x) {
+    public Wrap keep3(final String x) {
         return new Wrap(x);
     }
 
     @Memoize(time = 1, unit = TimeUnit.SECONDS)
-    public Wrap keep1Sec(String x) {
+    public Wrap keep1Sec(final String x) {
         return new Wrap(x);
     }
 
     @Memoize(size = 3, time = 1, unit = TimeUnit.SECONDS)
-    public Wrap keep3for1Sec(String x) {
+    public Wrap keep3for1Sec(final String x) {
         return new Wrap(x);
     }
 
     @Memoize(statistics = true)
-    public Wrap statistics(String x) {
+    public Wrap statistics(final String x) {
         return new Wrap(x);
     }
 
     @Memoize
-    public Wrap exception(String x) throws Exception {
+    public Wrap exception(final String x) throws Exception {
         throw new IOException();
     }
 
@@ -71,32 +71,32 @@ public class MemoizeTestService {
     }
 
     @Memoize
-    public Wrap twoArgs(String x, String y) {
+    public Wrap twoArgs(final String x, final String y) {
         return new Wrap(x + y);
     }
 
     @Memoize
-    public Wrap varArgs(String... x) {
+    public Wrap varArgs(final String... x) {
         return new Wrap(x);
     }
 
     @Memoize
-    public Wrap mixedVarArgs(String x, String... y) {
+    public Wrap mixedVarArgs(final String x, final String... y) {
         return new Wrap(x);
     }
 
     @Memoize
-    public Wrap primitiveVarArgs(int... x) {
+    public Wrap primitiveVarArgs(final int... x) {
         return new Wrap(x);
     }
 
     @Memoize(statistics = true)
-    public Wrap nullResult(String x) {
+    public Wrap nullResult(final String x) {
         return null;
     }
 
     @Memoize
-    public Wrap array(String[] x) {
+    public Wrap array(final String[] x) {
         return new Wrap(x);
     }
 }

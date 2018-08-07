@@ -30,17 +30,26 @@ import org.aopalliance.intercept.MethodInvocation;
 
 /**
  * Invokes the underlying method of a memoize operation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MemoizeInvoker implements Callable<Optional<Object>> {
+
+    /**
+     * The method invocation.
+     */
     private final MethodInvocation invocation;
 
-    public MemoizeInvoker(MethodInvocation invocation) {
+    /**
+     * Constructs an instance of <code>MemoizeInvoker</code>.
+     *
+     * @param invocation the method invocation.
+     */
+    public MemoizeInvoker(final MethodInvocation invocation) {
         this.invocation = invocation;
     }
-    
+
     @Override
     public Optional<Object> call() throws Exception {
         Object result;

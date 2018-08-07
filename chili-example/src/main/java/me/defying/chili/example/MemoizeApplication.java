@@ -26,17 +26,20 @@ import com.google.inject.Inject;
 
 /**
  * Example of {@code Memoize} annotation.
- * 
+ *
  * <p>Please refer to {@code MemoizeTestService} for further examples.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MemoizeApplication {
-    
+
+    /**
+     * The service to memoize.
+     */
     @Inject
     private MemoizeService service;
-    
+
     public void run() {
         // calculate five powers
         // (all with cache miss)
@@ -45,13 +48,13 @@ public class MemoizeApplication {
         System.out.println(service.power(3));
         System.out.println(service.power(4));
         System.out.println(service.power(5));
-        
+
         // cache hit
         System.out.println(service.power(3));
-        
+
         // cache miss
         System.out.println(service.power(1));
-        
+
         // cache hit
         System.out.println(service.power(1));
     }

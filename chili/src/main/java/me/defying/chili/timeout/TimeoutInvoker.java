@@ -28,14 +28,23 @@ import org.aopalliance.intercept.MethodInvocation;
 
 /**
  * Invokes the underlying method of a timeout operation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.1
  */
 public class TimeoutInvoker implements Callable<Object> {
+
+    /**
+     * The method invocation.
+     */
     private final MethodInvocation invocation;
 
-    public TimeoutInvoker(MethodInvocation invocation) {
+    /**
+     * Constructs an instance of <code>TimeoutInvoker</code>.
+     *
+     * @param invocation the method invocation.
+     */
+    public TimeoutInvoker(final MethodInvocation invocation) {
         this.invocation = invocation;
     }
 
@@ -43,7 +52,7 @@ public class TimeoutInvoker implements Callable<Object> {
     public Object call() throws Exception {
         try {
             return invocation.proceed();
-        } catch (Throwable ex) {
+        } catch (final Throwable ex) {
             // when the underlying method invokation throws an exception it is
             // wrapped and sent to the interceptor in order to existing code get
             // the real exception

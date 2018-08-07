@@ -28,7 +28,7 @@ import me.defying.chili.Log;
 
 /**
  * Test service for {@code Log} annotation.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
@@ -65,17 +65,17 @@ public class LogTestService {
     }
 
     @Log
-    public void hasArgument(int x) {
+    public void hasArgument(final int x) {
         // empty
     }
 
     @Log
-    public void hasArguments(int x, int y) {
+    public void hasArguments(final int x, final int y) {
         // empty
     }
 
     @Log
-    public void hasVarArgs(int... x) {
+    public void hasVarArgs(final int... x) {
         // empty
     }
 
@@ -85,10 +85,10 @@ public class LogTestService {
     }
 
     @Log
-    public int hasArgumentAndReturn(int x) {
+    public int hasArgumentAndReturn(final int x) {
         return x;
     }
-    
+
     @Log
     public void exception() throws Exception {
         throw new IOException();

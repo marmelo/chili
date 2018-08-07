@@ -29,22 +29,27 @@ import me.defying.chili.module.ChiliModule;
 
 /**
  * Example of {@code Memoize} annotation.
- * 
+ *
  * <p>Please refer to {@code MemoizeTestService} for further examples.
- * 
+ *
  * @author Rafael Marmelo
  * @since 1.0
  */
 public class MemoizeExample {
-    
-    public static void main(String[] args) {
+
+    /**
+     * The entry point.
+     *
+     * @param args the command line arguments.
+     */
+    public static void main(final String[] args) {
         // create the injector
-        Injector injector = Guice.createInjector(new ChiliModule());
- 
+        final Injector injector = Guice.createInjector(new ChiliModule());
+
         // create our application main class
-        MemoizeApplication application = injector.getInstance(MemoizeApplication.class);
+        final MemoizeApplication application = injector.getInstance(MemoizeApplication.class);
         application.run();
-        
+
         //
         // Expected stdout:
         //
