@@ -28,7 +28,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.aopalliance.intercept.MethodInvocation;
 
 /**
@@ -56,6 +55,18 @@ public final class InvocationUtils {
      */
     public static <T extends Annotation> T getAnnotation(final MethodInvocation invocation, final Class<T> annotation) {
         return invocation.getMethod().getAnnotation(annotation);
+    }
+
+    /**
+     * Returns the class annotation for the specified annotation type.
+     *
+     * @param <T> the annotation type
+     * @param invocation the method invocation
+     * @param annotation the type of annotation
+     * @return the class annotation for the specified annotation type
+     */
+    public static <T extends Annotation> T getClassAnnotation(final MethodInvocation invocation, final Class<T> annotation) {
+        return invocation.getThis().getClass().getSuperclass().getAnnotation(annotation);
     }
 
     /**

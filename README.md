@@ -16,6 +16,7 @@ The following [annotations](#annotations) are currently implemented:
 - [@Log](#log) - Log method invocation.
 - [@Memoize](#memoize) - Cache the method computed result.
 - [@Timeout](#timeout) - Interrupt method invocation if time limit is exceeded.
+- [@ToString](#tostring) - Generate ```toString``` method automatically.
 
 
 ## Configuration
@@ -75,7 +76,7 @@ public class MemoizeService {
 
     /**
      * Returns the given value raised to the power of two.
-     * 
+     *
      * @param x the base value.
      * @return the value {@code x}<sup>2</sup>.
      */
@@ -120,17 +121,17 @@ bindings into your code.
 
 ```java
 public class MemoizeExample {
-    
+
     public static void main(String[] args) {
         // create the injector
         Injector injector = Guice.createInjector(new ChiliModule());
- 
+
         // create an injected instance of the service
         MemoizeService service = injector.getInstance(MemoizeService.class);
-        
+
         // cache miss
         service.power(3);
-        
+
         // cache hit
         service.power(3);
     }
@@ -180,3 +181,13 @@ The [@Timeout](#timeout) annotation accepts the following elements:
 | ---------- | -------- | ------------ | ------------ |
 | ```time```       | long     | 0L           | For how long the method invocation should be time limited according to the ```unit``` value. If unspecified or equal to zero the method will not be time bound. |
 | ```unit```       | TimeUnit | MILLISECONDS | The ```TimeUnit``` the ```time``` value refers to. |
+
+#### @ToString
+
+Generate `toString` method automatically including all or some class fields.
+
+The [@ToString](#tostring) annotation accepts the following elements:
+
+| Element     | Type     | Default       | Description  |
+| ----------- | -------- | ------------- | ------------ |
+| ```fields``` | String[] | {} | List of class fields to include in the ```toString``` generation. If empty, all class fields will be included. Unknown fields will be silently ignored. |

@@ -24,13 +24,15 @@ package me.defying.chili.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
-
 import me.defying.chili.Log;
 import me.defying.chili.Memoize;
 import me.defying.chili.Timeout;
+import me.defying.chili.ToString;
 import me.defying.chili.log.LogInterceptor;
 import me.defying.chili.memoize.MemoizeInterceptor;
 import me.defying.chili.timeout.TimeoutInterceptor;
+import me.defying.chili.tostring.ToStringInterceptor;
+import me.defying.chili.tostring.ToStringMatcher;
 
 /**
  * Guava module that configures all Chili annotations.
@@ -48,5 +50,6 @@ public class ChiliModule extends AbstractModule {
         bindInterceptor(Matchers.any(), Matchers.annotatedWith(Log.class), new LogInterceptor());
         bindInterceptor(Matchers.any(), Matchers.annotatedWith(Memoize.class), new MemoizeInterceptor());
         bindInterceptor(Matchers.any(), Matchers.annotatedWith(Timeout.class), new TimeoutInterceptor());
+        bindInterceptor(Matchers.annotatedWith(ToString.class), new ToStringMatcher(), new ToStringInterceptor());
     }
 }
